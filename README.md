@@ -109,7 +109,7 @@ This project includes a **comprehensive backtesting engine** with two proven str
 - Buy&Hold: **+655%** return
 - Max Drawdown: -45% (manageable for leverage)
 
-**📄 Detailed Analysis**: See [strategies/buyback_strategy_explanation_EN.md](strategies/buyback_strategy_explanation_EN.md) for:
+**📄 Detailed Analysis**: See [strategies/buyback_strategy_explanation.md](strategies/buyback_strategy_explanation.md) for:
 - Complete parameter optimization studies
 - Risk/return analysis
 - Whipsaw analysis (trade frequency by year)
