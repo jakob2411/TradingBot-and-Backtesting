@@ -311,28 +311,54 @@ def build_parser() -> argparse.ArgumentParser:
     p_val.set_defaults(func=cmd_portfolio_value)
 
     # backtest-ma200
-    p_bt = sub.add_parser("backtest-ma200", help="Backtest MA200 strategy on daily data (default SPY, 5y)")
+    p_bt = sub.add_parser("backtest-ma200", help="Backtest Moving Average strategy on daily data (default SPY, MA200, 5y)")
     p_bt.add_argument("--symbol", default="SPY", help="Ticker to backtest (default: SPY)")
     p_bt.add_argument("--years", type=int, default=5, help="Number of years to backtest (default: 5)")
+    p_bt.add_argument("--ma-period", type=int, default=200, help="Moving average period in days (default: 200)")
     p_bt.add_argument("--initial-cash", type=float, default=10_000.0, help="Starting capital (default: 10000)")
     p_bt.add_argument("--csv", default=None, help="Optional path to save equity curve as CSV")
     p_bt.add_argument("--plot", action="store_true", help="Display a plot of equity and position")
     p_bt.add_argument("--plot-file", default=None, help="Save plot image to this path (e.g., backtest.png)")
     p_bt.set_defaults(func=cmd_backtest_ma200)
 
+    # backtest-buyback
+    p_bb = sub.add_parser("backtest-buyback", help="Backtest Buyback strategy: sell on MA cross-down, buy after N days")
+    p_bb.add_argument("--symbol", default="SPY", help="Ticker to backtest (default: SPY)")
+    p_bb.add_argument("--years", type=int, default=5, help="Number of years to backtest (default: 5)")
+    p_bb.add_argument("--ma-period", type=int, default=200, help="Moving average period in days (default: 200)")
+    p_bb.add_argument("--wait-days", type=int, default=10, help="Days to wait before buying back (default: 10)")
+    p_bb.add_argument("--initial-cash", type=float, default=10_000.0, help="Starting capital (default: 10000)")
+    p_bb.add_argument("--csv", default=None, help="Optional path to save equity curve as CSV")
+    p_bb.add_argument("--plot", action="store_true", help="Display a plot of equity and position")
+    p_bb.add_argument("--plot-file", default=None, help="Save plot image to this path (e.g., backtest.png)")
+    p_bb.set_defaults(func=cmd_backtest_buyback)
+
     return parser
 
 
 def cmd_backtest_ma200(args: argparse.Namespace) -> None:
     try:
-        from strategies.ma200 import run_cli
+        from strategies.movingaverage import run_cli
     except Exception as e:
         print("Backtest dependencies missing. Please install requirements:")
         print("  pip install -r requirements.txt")
         print(f"Error: {e}")
         return
-    run_cli(symbol=args.symbol, years=args.years, initial_cash=args.initial_cash, csv=args.csv,
-            plot=args.plot, plot_file=args.plot_file)
+    run_cli(symbol=args.symbol, years=args.years, initial_cash=args.initial_cash, 
+            ma_period=args.ma_period, csv=args.csv, plot=args.plot, plot_file=args.plot_file)
+
+
+def cmd_backtest_buyback(args: argparse.Namespace) -> None:
+    try:
+        from strategies.buyback import run_cli
+    except Exception as e:
+        print("Backtest dependencies missing. Please install requirements:")
+        print("  pip install -r requirements.txt")
+        print(f"Error: {e}")
+        return
+    run_cli(symbol=args.symbol, years=args.years, initial_cash=args.initial_cash, 
+            ma_period=args.ma_period, wait_days=args.wait_days, 
+            csv=args.csv, plot=args.plot, plot_file=args.plot_file)
 
 
 def main(argv: list[str] | None = None) -> int:
