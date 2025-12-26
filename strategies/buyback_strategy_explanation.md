@@ -191,7 +191,7 @@ The strategy was tested with various Wait-Days parameters to determine the optim
 | 2 Days    | $23,936.07 | **+137.00%** | 18.85% | -23.08% | 30 | +50.10% |
 | 5 Days    | $23,773.04 | **+135.39%** | 18.69% | -22.15% | 30 | +48.47% |
 | 8 Days    | $25,115.18 | **+148.68%** | 20.00% | -24.02% | 30 | +61.78% |
-| **10 Days** | **$26,788.63** | **+165.25%** ⭐ | **21.56%** ⭐ | **-19.56%** ⭐ | 30 | **+78.35%** |
+| **10 Days** | **$26,788.63** | **+165.25%** ⭐ | **21.56%** ⭐ | **-19.56%** | 30 | **+78.35%** |
 | 12 Days   | $26,420.56 | **+161.60%** | 21.22% | **-18.36%** | 30 | +74.70% |
 | 15 Days   | $25,824.32 | **+155.70%** | 20.67% | **-18.36%** | 30 | +68.80% |
 | 20 Days   | $25,409.10 | **+151.59%** | 20.28% | **-18.36%** | 30 | +64.69% |
@@ -216,7 +216,7 @@ The strategy was tested with various Wait-Days parameters to determine the optim
 | 5 Days    | $63,836.08 | **+541.04%** | 20.42% | -22.15% | 60 | +306.63% |
 | 8 Days    | $76,734.25 | **+667.34%** | 22.61% | -24.02% | 61 | +432.93% |
 | 10 Days   | $83,589.37 | **+735.89%** | 23.66% | **-19.56%** | 61 | +501.48% |
-| **12 Days** | **$86,527.52** | **+765.28%** ⭐ | **24.09%** ⭐ | **-18.36%** ⭐ | 61 | **+530.87%** |
+| **12 Days** | **$86,527.52** | **+765.28%** ⭐ | **24.09%** ⭐ | **-18.36%** | 61 | **+530.87%** |
 | 15 Days   | $75,484.72 | **+654.85%** | 22.40% | **-18.36%** | 61 | +420.44% |
 | 20 Days   | $73,956.66 | **+639.57%** | 22.15% | **-18.36%** | 61 | +405.16% |
 
@@ -341,27 +341,146 @@ The strategy was tested with various Wait-Days parameters to determine the optim
 |--------|------------------|-----------------|------------------|-----------------|
 | **Total Return** | **+765.28%** ⭐ | **+165.25%** ⭐ | +234.41% | +86.90% |
 | **CAGR** | **24.09%** ⭐ | **21.56%** ⭐ | 13.01% | 13.37% |
-| **Max Drawdown** | **-18.36%** | **-19.56%** | -35% to -50% (typical) | -35% to -50% (typical) |
-| **Trades** | 61 | 30 | 0 | 0 |
+| **Max Drawdown** | -18.36% | -19.56% | -35% to -50% (typical) | -35% to -50% (typical) |
+| **Trades (10Y)** | 61 | 30 | 0 | 0 |
 | **Complexity** | Medium | Medium | None | None |
 | **Outperformance** | **+531%** vs B&H | **+78%** vs B&H | Baseline | Baseline |
 
-**Performance Advantage Summary:**
-- 10Y Buyback-12 vs Buy&Hold: +530.87 percentage points absolute return (765.28% vs 234.41%)
-- 5Y Buyback-10 vs Buy&Hold: +78.35 percentage points absolute return (165.25% vs 86.90%)
-- CAGR Multiple: Buyback delivers 1.85x to 1.86x higher annual returns
+---
+
+## 2x Leveraged Variant (SSO - ProShares Ultra S&P 500)
+
+The Buyback strategy can also be tested with 2x leveraged positions (SSO instead of SPY).
+
+### 📊 SSO (2x Leverage) Backtest Results - 10 Wait Days
+
+| Years | Final Value | Total Return | CAGR | Max Drawdown | Trades | vs B&H |
+|-------|-------------|--------------|------|--------------|--------|--------|
+| **3 Years** | $30,132 | **+203.71%** | 45.00% | -33.27% | 24 | +177.71 pp |
+| **5 Years** | $33,606 | **+229.37%** | 26.94% | -44.86% | 34 | +202.74 pp |
+| **10 Years** | $333,206 | **+3232.06%** ⭐ | **42.00%** | -44.86% | 67 | +3158.35 pp |
+| **15 Years** | $1,342,489 | **+13,165.80%** 🔥 | **38.55%** | -44.86% | 86 | +13,167.06 pp |
+| **20 Years** | $1,250,724 | **+12,482.51%** | 29.49% | **-83.18%** ⚠️ | 120 | +12,376.11 pp |
+| **25 Years** | $1,250,724 | **+12,482.51%** | 29.49% | **-83.18%** ⚠️ | 120 | +12,376.11 pp |
+
+### Direct Comparison: SPY (Normal) vs SSO (2x Leverage)
+
+#### 10-Year Period (2015-2025)
+
+| Metric | SPY (Normal) | SSO (2x) | Leverage Factor |
+|--------|--------------|----------|-----------------|
+| **Strategy Return** | +765.28% | **+3232.06%** | **4.2x** |
+| **CAGR** | 24.09% | **42.00%** | **1.74x** |
+| **Max Drawdown** | -18.36% | **-44.86%** | **2.4x** (Risk!) |
+| **Final Value** | $86,527 | **$333,206** | **3.9x** |
+| **Buy&Hold Return** | +234.41% | +654.54% | 2.8x |
+
+#### 15-Year Period (2010-2025)
+
+| Metric | SPY (Normal) | SSO (2x) | Leverage Factor |
+|--------|--------------|----------|-----------------|
+| **Strategy Return** | - | **+13,165.80%** | - |
+| **CAGR** | - | **38.55%** | - |
+| **Max Drawdown** | - | -44.86% | - |
+| **Final Value** | - | **$1,342,489** | - |
+
+### 🎯 Analysis of Leverage Effects
+
+#### ✅ Advantages of 2x Leverage Variant
+
+1. **Exponential Returns**
+   - 10 years: $10K → $333K instead of $86K
+   - 15 years: $10K → $1.34M 🚀
+   - **15 years is the sweet spot:** 38.55% CAGR
+
+2. **Leverage Multiplier Works**
+   - Positive returns are ~2x leveraged
+   - In bull markets: massive gains
+   - Power of Compounding: 38.55% CAGR becomes exponential
+
+3. **Strategy Remains Effective**
+   - Risk management through MA200 works with leverage too
+   - Sell signals help avoid major losses
+   - Even with 2x: DD only -44.86% (vs. typical 2x crash: -50%)
+
+#### ⚠️ Disadvantages and Risks
+
+1. **Drawdown Doubling Hurts**
+   - SPY Max DD: -18.36% → SSO Max DD: -44.86%
+   - 20+ years: **-83.18%** (2008 Financial Crisis!)
+   - Psychologically & financially very challenging
+   - Liquidation/Margin Call risk
+
+2. **Leverage Decay in Sideways Markets**
+   - Daily rebalancing costs money
+   - In volatile sideways markets: tracking error
+   - Especially bad in 2000s
+
+3. **Longer Crashes Destroy Gains**
+   - 2008 crash: -83.18% drawdown
+   - Takes long to recover
+   - CAGR drops from 38.55% (15Y) to 29.49% (20Y)
+
+4. **Limited Historical Data**
+   - SSO launched only in 2006
+   - 25-year backtest based on extrapolated data
+   - True history is shorter
+
+### 🎯 Optimal Configuration for Leverage
+
+**Best Period: 15 Years**
+- CAGR: 38.55% (highest combined with moderate DD)
+- Max Drawdown: -44.86% (manageable)
+- Final Value: $1,342,489 (amazing!)
+- Trades: 86 (~6/year)
+
+**Not Recommended: 20+ Years**
+- DD explodes to -83.18%
+- CAGR drops to 29.49%
+- 2008 Financial Crisis too painful
+
+### 📊 Tabular Comparison
+
+| Scenario | Setup | Return | CAGR | DD | Final Value |
+|----------|-------|--------|------|-----|-------------|
+| Conservative | SPY, 10 days, 10Y | +765% | 24.09% | -18% | $86.5K |
+| Aggressive | SSO, 10 days, 10Y | +3232% | 42.00% | -45% | $333K |
+| Extreme | SSO, 10 days, 15Y | +13166% | 38.55% | -45% | **$1.34M** |
+| Risky | SSO, 10 days, 20Y | +12483% | 29.49% | **-83%** | $1.25M |
+
+### Conclusion on Leverage
+
+**When Leverage Makes Sense:**
+- ✅ Short to medium term (3-10 years) in bull markets
+- ✅ With strict risk management (MA200 sell signals!)
+- ✅ Psychological resilience present
+- ✅ 15 years is the perfect sweet spot
+- ✅ For aggressive traders with high risk tolerance
+
+**When Leverage is Bad:**
+- ❌ Long periods (20+ years) due to extreme crashes
+- ❌ In volatile sideways markets (2000s, 2015)
+- ❌ If emotion management is weak
+- ❌ With small capital (margin calls!)
+- ❌ In bear markets (better Buy&Hold SPY without leverage)
+
+**Recommendation:**
+- **Conservative:** Use SPY without leverage (24% CAGR + safety)
+- **Aggressive:** Use SSO with clear exit plan (42% CAGR + risk)
+- **Optimal:** Hybrid approach - SSO in bull markets, SPY in bear markets
 
 ### Conclusion
 
 The Buyback Strategy shows **outstanding results** in backtesting:
 
 **Pros:**
-- Exceptional returns: up to +765% in 10 years
+- Exceptional returns: up to +765% in 10 years (SPY), up to +13,166% in 15 years (SSO)
 - Consistent outperformance versus Buy&Hold
 - Excellent risk management with low drawdown
 - Automatic re-entry prevents "missing the market"
 - Robustness across different parameters (10-12 days optimal)
 - Moderate trading frequency (~6 trades/year)
+- Works with both leveraged and unleveraged instruments
 
 **Cons:**
 - Results based on historically strong bull market
@@ -370,6 +489,7 @@ The Buyback Strategy shows **outstanding results** in backtesting:
 - Overfitting risk in parameter optimization
 - Higher complexity than Buy&Hold
 - Requires discipline and consistent execution
+- Leverage increases drawdown risk significantly
 
 **Recommendation:** The strategy is suitable for active investors who:
 - Are willing to trade systematically (6 trades/year)
@@ -377,127 +497,4 @@ The Buyback Strategy shows **outstanding results** in backtesting:
 - Want to participate in long-term trends
 - Prefer technical analysis strategies
 - Understand tax and cost implications
-- **Recommended Configuration:** 10-12 Wait Days
-
----
-
-## 2x Leveraged Variante (SSO - ProShares Ultra S&P 500)
-
-Die Buyback-Strategie kann auch mit 2x gehebelteten Positionen (SSO statt SPY) getestet werden.
-
-### 📊 SSO (2x Leverage) Backtest Results - 10 Wait Days
-
-| Jahre | Endwert | Total Return | CAGR | Max Drawdown | Trades | vs B&H |
-|-------|---------|--------------|------|--------------|--------|--------|
-| **3 Jahre** | $30,132 | **+203.71%** | 45.00% | -33.27% | 24 | +177.71 pp |
-| **5 Jahre** | $33,606 | **+229.37%** | 26.94% | -44.86% | 34 | +202.74 pp |
-| **10 Jahre** | $333,206 | **+3232.06%** ⭐ | **42.00%** | -44.86% | 67 | +3158.35 pp |
-| **15 Jahre** | $1,342,489 | **+13,165.80%** 🔥 | **38.55%** | -44.86% | 86 | +13,167.06 pp |
-| **20 Jahre** | $1,250,724 | **+12,482.51%** | 29.49% | **-83.18%** ⚠️ | 120 | +12,376.11 pp |
-| **25 Jahre** | $1,250,724 | **+12,482.51%** | 29.49% | **-83.18%** ⚠️ | 120 | +12,376.11 pp |
-
-### Direkter Vergleich: SPY (Normal) vs SSO (2x Leverage)
-
-#### 10-Jahres-Periode (2015-2025)
-
-| Metrik | SPY (Normal) | SSO (2x) | Hebel-Faktor |
-|--------|--------------|----------|--------------|
-| **Strategy Return** | +765.28% | **+3232.06%** | **4.2x** |
-| **CAGR** | 24.09% | **42.00%** | **1.74x** |
-| **Max Drawdown** | -18.36% | **-44.86%** | **2.4x** (Risiko!) |
-| **Final Value** | $86,527 | **$333,206** | **3.9x** |
-| **Buy&Hold Return** | +234.41% | +654.54% | 2.8x |
-
-#### 15-Jahres-Periode (2010-2025)
-
-| Metrik | SPY (Normal) | SSO (2x) | Hebel-Faktor |
-|--------|--------------|----------|--------------|
-| **Strategy Return** | - | **+13,165.80%** | - |
-| **CAGR** | - | **38.55%** | - |
-| **Max Drawdown** | - | -44.86% | - |
-| **Final Value** | - | **$1,342,489** | - |
-
-### 🎯 Analyse der Leverage-Effekte
-
-#### ✅ Vorteile der 2x Leverage-Variante
-
-1. **Exponentielle Returns**
-   - 10 Jahre: $10K → $333K statt $86K
-   - 15 Jahre: $10K → $1.34M 🚀
-   - **15 Jahre ist der Sweet Spot:** 38.55% CAGR
-
-2. **Hebel-Multiplikator funktioniert**
-   - Positive Returns werden ~2x gehebelt
-   - In Bull-Märkten massive Gewinne
-   - Power of Compounding: 38.55% CAGR wird exponentiell
-
-3. **Strategie bleibt wirksam**
-   - Risk Management durch MA200 funktioniert auch mit Hebel
-   - Verkaufssignale helfen, große Verluste zu vermeiden
-   - Selbst mit 2x ist DD nur -44.86% (vs. typische 2x Crash: -50%)
-
-#### ⚠️ Nachteile und Risiken
-
-1. **Drawdown-Verdopplung schmerzt**
-   - SPY Max DD: -18.36% → SSO Max DD: -44.86%
-   - 20+ Jahre: **-83.18%** (2008 Finanzkrise!)
-   - Psychologisch & finanziell sehr belastend
-   - Liquidations-/Margin-Call-Risiko
-
-2. **Leverage Decay in Sideways-Märkten**
-   - Tägliches Rebalancing kostet Geld
-   - In volatilen Seitwärtsmärkten: Tracking Error
-   - Besonders schlecht in 2000er Jahren
-
-3. **Längere Crashs zerstören Gains**
-   - 2008 Crash: -83.18% Drawdown
-   - Braucht lange zur Erholung
-   - CAGR fällt von 38.55% (15J) auf 29.49% (20J)
-
-4. **Begrenzte historische Daten**
-   - SSO wurde erst 2006 aufgelegt
-   - 25-Jahres-Backtest basiert auf extrapolierten Daten
-   - Echte Historie ist kürzer
-
-### 🎯 Optimale Konfiguration für Leverage
-
-**Beste Periode: 15 Jahre**
-- CAGR: 38.55% (höchste kombiniert mit moderatem DD)
-- Max Drawdown: -44.86% (managebar)
-- Endwert: $1,342,489 (überraschend!)
-- Trades: 86 (~6/Jahr)
-
-**Nicht empfohlen: 20+ Jahre**
-- DD explodiert auf -83.18%
-- CAGR fällt auf 29.49%
-- 2008 Finanzkrise zu schmerzhaft
-
-### 📊 Tabellarischer Vergleich
-
-| Szenario | Setup | Return | CAGR | DD | Finale Value |
-|----------|-------|--------|------|-----|--------------|
-| Konservativ | SPY, 10 days, 10Y | +765% | 24.09% | -18% | $86.5K |
-| Aggressiv | SSO, 10 days, 10Y | +3232% | 42.00% | -45% | $333K |
-| Extrem | SSO, 10 days, 15Y | +13166% | 38.55% | -45% | **$1.34M** |
-| Riskant | SSO, 10 days, 20Y | +12483% | 29.49% | **-83%** | $1.25M |
-
-### Fazit zu Leverage
-
-**Wann macht Leverage Sinn:**
-- ✅ Kurz- bis mittelfristig (3-10 Jahre) in Bull-Märkten
-- ✅ Mit striktem Risk Management (MA200 Sell-Signale!)
-- ✅ Psychologische Belastbarkeit vorhanden
-- ✅ 15 Jahre ist der perfekte Sweet Spot
-- ✅ Für aggressive Trader mit hoher Risk Tolerance
-
-**Wann ist Leverage schlecht:**
-- ❌ Lange Perioden (20+ Jahre) wegen extremer Crashs
-- ❌ In volatilen Seitwärtsmärkten (2000er, 2015)
-- ❌ Wenn Emotions-Management schwach ist
-- ❌ Mit kleinem Kapital (Margin Calls!)
-- ❌ In Bärenmärkten (besser Buy&Hold SPY ohne Hebel)
-
-**Empfehlung:**
-- **Konservative:** Nutzen SPY ohne Hebel (CAGR 24% + Sicherheit)
-- **Aggressive:** Nutzen SSO mit klarem Exit-Plan (CAGR 42% + Risiko)
-- **Optimal:** Hybrid-Ansatz - SSO in Bull-Märkten, SPY in Bären-Märkten
+- **Recommended Configuration:** 10-12 Wait Days (SPY) or 15 years (SSO leveraged)
