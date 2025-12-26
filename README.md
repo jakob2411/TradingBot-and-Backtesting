@@ -2,14 +2,10 @@
 
 **Portfolio management CLI for Alpaca** with comprehensive **backtesting capabilities** and bot automation.
 
-## 🎯 Key Features
+## Key Features
 
-- **📊 Advanced Backtesting Engine**: Test trading strategies over 3-50 years of historical data
-- **📈 Multiple Strategies**: MA200, Buyback-N, and support for 1x-3x leveraged ETFs
-- **💰 Portfolio Management**: Complete CLI for Alpaca trading (buy, sell, positions, orders)
-- **🤖 Bot Framework**: Minimal starting point for automated trading
-- **📉 Risk Analysis**: Comprehensive performance metrics (CAGR, Sharpe, Max Drawdown)
-- **📊 Visualization**: Generate charts and export data to CSV
+- **Portfolio Management**: Complete CLI for Alpaca trading (buy, sell, positions, orders)
+- **Bot Framework**: Minimal starting point for automated trading
 
 For more information, see the [official Alpaca documentation](https://docs.alpaca.markets/docs/getting-started).
 
@@ -17,7 +13,7 @@ For more information, see the [official Alpaca documentation](https://docs.alpac
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 **This software is for educational and research purposes only. It is NOT investment advice.**
 
@@ -61,66 +57,6 @@ Notes:
 
 ---
 
-## 📊 Backtesting Strategies
-
-This project includes a **comprehensive backtesting engine** with two proven strategies tested over decades of market data.
-
-### 🎯 Available Strategies
-
-#### 1. **MA200 Strategy** (Moving Average Crossover)
-- **Logic**: Buy when price > MA200, sell when below
-- **Best for**: Simple trend following
-- **Typical CAGR**: 8-12% (SPY)
-- **Max Drawdown**: ~25-35%
-
-#### 2. **Buyback-N Strategy** ⭐ **Recommended**
-- **Logic**: Sell on MA200 cross below, auto-buyback after N trading days
-- **Innovation**: Prevents "missing the market" during recoveries
-- **Parameter Study**: Tested with 2, 5, 8, 10, 12, 15, 20 wait days
-- **Best Configuration**: 
-  - **10-12 wait days** for optimal risk/return balance
-  - **SPY (1x)**: 24% CAGR, -18% Max DD (10Y)
-  - **SSO (2x)**: 42% CAGR, -45% Max DD (10Y) 🚀
-  - **15Y SSO**: 38.55% CAGR, turns $10K into $1.34M
-
-### 📈 Tested Instruments
-
-- **SPY** (S&P 500): Standard, lower risk
-- **SSO** (2x Leveraged S&P 500): Higher returns, higher risk
-- **Custom symbols**: Works with any ticker available on yfinance
-
-### 🔬 Extensive Testing Periods
-
-- **3 years** (2022-2025): Recent bull market
-- **5 years** (2020-2025): Including COVID crash recovery
-- **10 years** (2015-2025): Full market cycle
-- **15 years** (2010-2025): Post-2008 recovery + growth
-- **20 years** (2006-2025): Including 2008 Financial Crisis
-- **25 years** (2000-2025): Dot-com + Financial Crisis + COVID
-- **50 years** (1975-2025): Maximum available data (when data exists)
-
-### 📊 Key Findings
-
-**Buyback Strategy vs Buy&Hold (10Y SPY):**
-- Strategy: **+765%** return (24% CAGR)
-- Buy&Hold: **+234%** return (13% CAGR)
-- **Outperformance: +531 percentage points** ⭐
-
-**With 2x Leverage (10Y SSO):**
-- Strategy: **+3,232%** return (42% CAGR)
-- Buy&Hold: **+655%** return
-- Max Drawdown: -45% (manageable for leverage)
-
-**📄 Detailed Analysis**: See [strategies/buyback_strategy_explanation.md](strategies/buyback_strategy_explanation.md) for:
-- Complete parameter optimization studies
-- Risk/return analysis
-- Whipsaw analysis (trade frequency by year)
-- Leverage comparison tables
-- Historical drawdown analysis
-- Visual charts and examples
-
----
-
 ## CLI Cheatsheet
 
 ### Portfolio Management
@@ -149,70 +85,9 @@ This project includes a **comprehensive backtesting engine** with two proven str
 ./master.py portfolio-value
 ```
 
-### Backtesting Commands
-
-#### MA200 Strategy
-```bash
-./master.py backtest-ma200                              # MA200, 5 years (default)
-./master.py backtest-ma200 --years 1                    # 1 year backtest
-./master.py backtest-ma200 --years 10                   # 10 years backtest
-./master.py backtest-ma200 --ma-period 50               # Use MA50 instead of MA200
-./master.py backtest-ma200 --symbol SPY --years 5 --initial-cash 20000
-./master.py backtest-ma200 --csv equity.csv             # save data to CSV
-./master.py backtest-ma200 --plot                       # show plot window
-./master.py backtest-ma200 --plot-file backtest.png     # save plot image (auto-saved to outputs/)
-./master.py backtest-ma200 --years 10 --plot            # 10 years with plot
-```
-
-#### Buyback Strategy ⭐
-```bash
-# Basic usage
-./master.py backtest-buyback                            # 10-day wait, 5 years (default)
-./master.py backtest-buyback --years 10                 # 10 years backtest
-./master.py backtest-buyback --years 3                  # Recent 3-year bull market
-
-# Parameter optimization
-./master.py backtest-buyback --wait-days 12             # Buy back after 12 days
-./master.py backtest-buyback --wait-days 10 --years 10  # Optimal config
-./master.py backtest-buyback --ma-period 200 --wait-days 10  # Full config
-
-# Different instruments
-./master.py backtest-buyback --symbol SPY --years 10    # Standard S&P 500
-./master.py backtest-buyback --symbol SSO --years 10    # 2x Leveraged (higher risk/return)
-./master.py backtest-buyback --symbol UPRO --years 5    # 3x Leveraged (extreme)
-
-# Output options
-./master.py backtest-buyback --plot                     # Show interactive chart
-./master.py backtest-buyback --plot-file result.png     # Save chart (auto to outputs/)
-./master.py backtest-buyback --csv equity.csv           # Export data to CSV
-./master.py backtest-buyback --years 10 --wait-days 12 --plot-file SPY_10Y.png
-
-# Real-world examples:
-# SPY (Standard):
-./master.py backtest-buyback --symbol SPY --years 10 --wait-days 12 --plot-file SPY_10Y.png
-# Result: +765% return, 24.09% CAGR, -18.36% Max DD
-
-# SSO (2x Leverage):
-./master.py backtest-buyback --symbol SSO --years 10 --wait-days 10 --plot-file SSO_10Y.png
-# Result: +3,232% return, 42% CAGR, -44.86% Max DD
-
-# SSO (15 years - Sweet Spot):
-./master.py backtest-buyback --symbol SSO --years 15 --wait-days 10 --plot-file SSO_15Y.png
-# Result: +13,166% return, 38.55% CAGR, $10K → $1.34M 🚀
-```
-
-**Performance Summary** (Buyback Strategy, 10 years):
-
-| Symbol | Wait Days | Total Return | CAGR | Max DD | Final Value |
-|--------|-----------|--------------|------|--------|-------------|
-| SPY    | 12        | **+765%**    | 24.09% | -18.36% | $86,527 |
-| SPY    | 10        | **+736%**    | 23.66% | -19.56% | $83,589 |
-| SSO    | 10        | **+3,232%**  | 42.00% | -44.86% | $333,206 |
-| Buy&Hold SPY | -   | +234%        | 13.01% | -35%    | $33,441 |
-
 ---
 
-## 🤖 Minimal Bot (Optional)
+## Minimal Bot (Optional)
 Save as `bot_example.py` and run inside the venv.
 ```python
 #!/usr/bin/env python3
