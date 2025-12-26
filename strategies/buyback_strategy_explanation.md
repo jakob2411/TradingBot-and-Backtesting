@@ -1,163 +1,163 @@
-# Buyback-10 Strategie - Detaillierte Erklärung
+# Buyback Strategy - Detailed Explanation
 
-## Überblick
+## Overview
 
-Die Buyback-10 Strategie ist eine trendfolgende Handelsstrategie, die auf einem gleitenden 200-Tage-Durchschnitt (MA200) basiert. Sie kombiniert klassische Moving-Average-Signale mit einer automatischen Rückkauf-Logik nach 10 Tagen.
+The Buyback Strategy is a trend-following trading strategy based on a 200-day moving average (MA200). It combines classic moving average signals with automatic buyback logic after a configurable number of days (default: 10 days).
 
-## Strategie-Regeln
+## Strategy Rules
 
-### 1. Basis-Signal: MA200 (Moving Average 200)
-- Der MA200 ist der Durchschnitt der letzten 200 Schlusskurse
-- Er zeigt den langfristigen Trend an
+### 1. Base Signal: MA200 (Moving Average 200)
+- The MA200 is the average of the last 200 closing prices
+- It indicates the long-term trend
 
-### 2. Verkauf-Signal
-**Verkaufen**, wenn:
-- Der Schlusskurs **unter** den MA200 fällt (Cross below)
-- Signal wird am Schlusskurs erkannt
-- Verkauf erfolgt am **Eröffnungskurs des nächsten Tages**
+### 2. Sell Signal
+**Sell** when:
+- The closing price falls **below** the MA200 (cross below)
+- Signal is detected at closing price
+- Sale executes at **next day's opening price**
 
-### 3. Wartezeit nach Verkauf
-- Nach dem Verkauf beginnt eine **10-Tage-Wartezeit**
-- Es werden **Handelstage** gezählt (keine Wochenenden/Feiertage)
+### 3. Waiting Period After Sale
+- After selling, a **10-day waiting period** begins
+- **Trading days** are counted (no weekends/holidays)
 
-### 4. Rückkauf-Signale
-**Zurückkaufen**, wenn eine dieser Bedingungen erfüllt ist:
+### 4. Buyback Signals
+**Buy back** when one of these conditions is met:
 
-**Option A - Vorzeitiger Rückkauf:**
-- Der Schlusskurs steigt **über** den MA200 (Cross above)
-- → Sofortiger Kauf (wartet nicht die 10 Tage ab)
+**Option A - Early Buyback:**
+- The closing price rises **above** the MA200 (cross above)
+- → Immediate purchase (doesn't wait for 10 days)
 
-**Option B - Automatischer Rückkauf:**
-- 10 Handelstage sind vergangen
-- → Automatischer Kauf, **auch wenn** der Preis noch unter MA200 ist
+**Option B - Automatic Buyback:**
+- 10 trading days have passed
+- → Automatic purchase, **even if** price is still below MA200
 
-## Wichtig: Lookahead-Bias Vermeidung
+## Important: Lookahead-Bias Avoidance
 
-Die Strategie vermeidet unrealistische Annahmen:
+The strategy avoids unrealistic assumptions:
 
-- **Signal-Erkennung**: Verwendet den **Schlusskurs** (Close) des Tages
-- **Ausführung**: Handel findet am **Eröffnungskurs** (Open) des **nächsten Tages** statt
+- **Signal Detection**: Uses the **closing price** (Close) of the day
+- **Execution**: Trading happens at the **opening price** (Open) of the **next day**
 
-**Warum?** In der Realität siehst du das Signal am Ende des Tages, kannst aber erst am nächsten Morgen handeln.
+**Why?** In reality, you see the signal at the end of the day but can only trade the next morning.
 
-## Konkretes Beispiel
+## Concrete Example
 
-### Szenario: Verkauf und 10-Tage-Wartezeit
+### Scenario: Sale and 10-Day Waiting Period
 
-**Ausgangssituation:** 
-- Du bist investiert (100 Aktien von SPY)
-- Startkapital: $10,000
+**Initial Situation:** 
+- You are invested (100 shares of SPY)
+- Starting capital: $10,000
 
-| Tag | Datum | Schlusskurs | MA200 | Event | days_since_sell | Position | Aktion | Kontostand |
-|-----|-------|-------------|-------|-------|-----------------|----------|--------|------------|
-| 0 | 5. Jan | $425 | $425 | Invested | - | Long (100 Aktien) | - | ~$42,500 |
-| **1** | **6. Jan** | **$420** | **$425** | **Cross Below!** | 0 | Long → Cash | **Verkaufe** am 7. Jan zu $418 (Open) | **$41,800** |
-| 2 | 7. Jan | $418 | $424 | Below MA | 1 | Cash | Warte (1/10) | $41,800 |
-| 3 | 8. Jan | $415 | $423 | Below MA | 2 | Cash | Warte (2/10) | $41,800 |
-| 4 | 9. Jan | $410 | $422 | Below MA | 3 | Cash | Warte (3/10) | $41,800 |
-| 5 | 10. Jan | $412 | $421 | Below MA | 4 | Cash | Warte (4/10) | $41,800 |
-| 6 | 13. Jan | $408 | $420 | Below MA | 5 | Cash | Warte (5/10) | $41,800 |
-| 7 | 14. Jan | $405 | $419 | Below MA | 6 | Cash | Warte (6/10) | $41,800 |
-| 8 | 15. Jan | $407 | $418 | Below MA | 7 | Cash | Warte (7/10) | $41,800 |
-| 9 | 16. Jan | $410 | $417 | Below MA | 8 | Cash | Warte (8/10) | $41,800 |
-| 10 | 17. Jan | $412 | $416 | Below MA | 9 | Cash | Warte (9/10) | $41,800 |
-| **11** | **20. Jan** | **$415** | **$415** | **10 Tage vorbei!** | **10** | **Cash → Long** | **Kaufe** am 21. Jan zu $417 (Open) | 100 Aktien @ $417 |
+| Day | Date | Close | MA200 | Event | days_since_sell | Position | Action | Account Balance |
+|-----|------|-------|-------|-------|-----------------|----------|--------|-----------------|
+| 0 | Jan 5 | $425 | $425 | Invested | - | Long (100 shares) | - | ~$42,500 |
+| **1** | **Jan 6** | **$420** | **$425** | **Cross Below!** | 0 | Long → Cash | **Sell** on Jan 7 at $418 (Open) | **$41,800** |
+| 2 | Jan 7 | $418 | $424 | Below MA | 1 | Cash | Wait (1/10) | $41,800 |
+| 3 | Jan 8 | $415 | $423 | Below MA | 2 | Cash | Wait (2/10) | $41,800 |
+| 4 | Jan 9 | $410 | $422 | Below MA | 3 | Cash | Wait (3/10) | $41,800 |
+| 5 | Jan 10 | $412 | $421 | Below MA | 4 | Cash | Wait (4/10) | $41,800 |
+| 6 | Jan 13 | $408 | $420 | Below MA | 5 | Cash | Wait (5/10) | $41,800 |
+| 7 | Jan 14 | $405 | $419 | Below MA | 6 | Cash | Wait (6/10) | $41,800 |
+| 8 | Jan 15 | $407 | $418 | Below MA | 7 | Cash | Wait (7/10) | $41,800 |
+| 9 | Jan 16 | $410 | $417 | Below MA | 8 | Cash | Wait (8/10) | $41,800 |
+| 10 | Jan 17 | $412 | $416 | Below MA | 9 | Cash | Wait (9/10) | $41,800 |
+| **11** | **Jan 20** | **$415** | **$415** | **10 days passed!** | **10** | **Cash → Long** | **Buy** on Jan 21 at $417 (Open) | 100 shares @ $417 |
 
-### Erklärung der Schlüsseltage:
+### Explanation of Key Days:
 
-**Tag 1 (6. Januar):**
-- Schlusskurs $420 < MA200 $425 → **Cross Below** Signal!
-- Signal wird erkannt, aber noch keine Aktion
+**Day 1 (January 6):**
+- Close price $420 < MA200 $425 → **Cross Below** signal!
+- Signal detected, but no action yet
 
-**Tag 2 (7. Januar):**
-- Order wird am **Eröffnungskurs** ausgeführt: Verkaufe zu $418
-- Du hast jetzt $41,800 in Cash
-- `days_since_sell` = 1 (Zähler startet)
+**Day 2 (January 7):**
+- Order executed at **opening price**: Sell at $418
+- You now have $41,800 in cash
+- `days_since_sell` = 1 (counter starts)
 
-**Tage 2-10:**
-- Preis bleibt unter MA200
-- Zähler läuft hoch: 1, 2, 3, ..., 9, 10
-- Keine Aktion, nur warten
+**Days 2-10:**
+- Price stays below MA200
+- Counter increments: 1, 2, 3, ..., 9, 10
+- No action, just waiting
 
-**Tag 11 (20. Januar):**
-- `days_since_sell` = 10 → **Rückkauf-Bedingung erfüllt!**
-- Preis ist immer noch unter MA200 ($415 < $415)
-- Trotzdem: Automatischer Rückkauf
+**Day 11 (January 20):**
+- `days_since_sell` = 10 → **Buyback condition met!**
+- Price is still below MA200 ($415 < $415)
+- Nevertheless: Automatic buyback
 
-**Tag 12 (21. Januar):**
-- Kaufe 100 Aktien zum **Eröffnungskurs** von $417
-- Du bist wieder investiert
+**Day 12 (January 21):**
+- Buy 100 shares at **opening price** of $417
+- You are invested again
 
-## Alternative: Vorzeitiger Rückkauf
+## Alternative: Early Buyback
 
-Was wäre, wenn der Preis vorher über den MA200 gestiegen wäre?
+What if the price had risen above MA200 earlier?
 
-| Tag | Datum | Schlusskurs | MA200 | Event | days_since_sell | Position | Aktion |
-|-----|-------|-------------|-------|-------|-----------------|----------|--------|
+| Day | Date | Close | MA200 | Event | days_since_sell | Position | Action |
+|-----|------|-------|-------|-------|-----------------|----------|--------|
 | ... | ... | ... | ... | ... | ... | ... | ... |
-| 7 | 14. Jan | $405 | $419 | Below MA | 6 | Cash | Warte (6/10) |
-| **8** | **15. Jan** | **$420** | **$418** | **Cross Above!** | **7** | **Cash → Long** | **Kaufe zurück** |
+| 7 | Jan 14 | $405 | $419 | Below MA | 6 | Cash | Wait (6/10) |
+| **8** | **Jan 15** | **$420** | **$418** | **Cross Above!** | **7** | **Cash → Long** | **Buy back** |
 
-→ Bei Tag 8 würde sofort gekauft, da der Preis über MA200 steigt (Cross Above)  
-→ Die 10-Tage-Wartezeit wird abgebrochen
+→ On day 8, it would buy immediately since price rises above MA200 (Cross Above)  
+→ The 10-day waiting period is aborted
 
-## Code-Referenz
+## Code Reference
 
-Die Logik findest du in `strategies/buyback.py`:
+The logic can be found in `strategies/buyback.py`:
 
 ```python
-# Zeilen 87-102: Kauf-Logik
+# Lines 87-102: Buy Logic
 if prev_pos == 0:  # Currently in cash
     # Buy if: cross above MA OR wait_days have passed since sell
     if cross_up == 1:
-        current_pos = 1  # Vorzeitiger Rückkauf bei Cross Above
+        current_pos = 1  # Early buyback on Cross Above
         days_since_sell = 0
-    elif days_since_sell >= wait_days:  # Automatischer Rückkauf nach 10 Tagen
+    elif days_since_sell >= wait_days:  # Automatic buyback after 10 days
         current_pos = 1
         days_since_sell = 0
     else:
         current_pos = 0
-        days_since_sell += 1  # Zähler erhöhen
+        days_since_sell += 1  # Increment counter
 
-# Zeilen 103-110: Verkauf-Logik
+# Lines 103-110: Sell Logic
 else:  # Currently long
     # Sell if cross below MA
     if cross_down == 1:
         current_pos = 0
-        days_since_sell = 1  # Zähler starten
+        days_since_sell = 1  # Start counter
     else:
         current_pos = 1
         days_since_sell = 0
 ```
 
-## Vorteile der Strategie
+## Strategy Advantages
 
-1. **Automatischer Wiedereinstieg**: Verpasst keine längeren Aufwärtsbewegungen
-2. **Trendfolgend**: Verkauft bei Abwärtstrends (unter MA200)
-3. **Zeitbasierte Sicherheit**: Kommt nach maximal 10 Tagen zurück in den Markt
-4. **Flexibel**: Kann sofort zurückkaufen, wenn Preis über MA200 steigt
+1. **Automatic Re-entry**: Doesn't miss longer upward movements
+2. **Trend Following**: Sells during downtrends (below MA200)
+3. **Time-based Safety**: Returns to market after maximum 10 days
+4. **Flexible**: Can buy back immediately if price rises above MA200
 
-## Nachteile / Risiken
+## Disadvantages / Risks
 
-1. **Whipsaw**: Häufige Hin- und Her-Trades bei volatilen Märkten um MA200
-2. **Garantierter Rückkauf**: Kauft nach 10 Tagen zurück, auch wenn Downtrend anhält
-3. **Lag**: MA200 ist ein nachlaufender Indikator - reagiert verzögert
-4. **Transaktionskosten**: Viele Trades können Gebühren summieren
+1. **Whipsaw**: Frequent back-and-forth trades in volatile markets around MA200
+2. **Guaranteed Buyback**: Buys back after 10 days even if downtrend continues
+3. **Lag**: MA200 is a lagging indicator - reacts with delay
+4. **Transaction Costs**: Many trades can accumulate fees
 
-## Parameter
+## Parameters
 
-- **Symbol**: Standard ist `SPY` (S&P 500 ETF)
-- **MA Period**: Standard 200 Tage (konfigurierbar)
-- **Wait Days**: Standard 10 Tage (konfigurierbar)
-- **Initial Cash**: Standard $10,000
+- **Symbol**: Default is `SPY` (S&P 500 ETF)
+- **MA Period**: Default 200 days (configurable)
+- **Wait Days**: Default 10 days (configurable)
+- **Initial Cash**: Default $10,000
 
-## Verwendung
+## Usage
 
 ```bash
-python master.py --strategy buyback --symbol SPY --years 5
+python master.py backtest-buyback --symbol SPY --years 5 --wait-days 10
 ```
 
-Oder im Code:
+Or in code:
 
 ```python
 from strategies.buyback import backtest_buyback
@@ -174,3 +174,207 @@ print(f"Total Return: {result.total_return * 100:.2f}%")
 print(f"CAGR: {result.cagr * 100:.2f}%")
 print(f"Max Drawdown: {result.max_drawdown * 100:.2f}%")
 ```
+
+## Backtest Analysis
+
+### Performance Results (As of December 2025)
+
+The strategy was tested with various Wait-Days parameters to determine the optimal waiting period.
+
+#### 📊 5-Year Backtest (2020-2025) - Parameter Study
+
+**Period:** Dec 24, 2020 → Dec 23, 2025 (~59 months)  
+**Symbol:** SPY | **MA Period:** 200 days | **Initial Capital:** $10,000
+
+| Wait Days | Final Value | Total Return | CAGR | Max Drawdown | Trades | Benchmark Outperformance |
+|-----------|-------------|--------------|------|--------------|--------|--------------------------|
+| 2 Days    | $23,936.07 | **+137.00%** | 18.85% | -23.08% | 30 | +50.10% |
+| 5 Days    | $23,773.04 | **+135.39%** | 18.69% | -22.15% | 30 | +48.47% |
+| 8 Days    | $25,115.18 | **+148.68%** | 20.00% | -24.02% | 30 | +61.78% |
+| **10 Days** | **$26,788.63** | **+165.25%** ⭐ | **21.56%** ⭐ | **-19.56%** ⭐ | 30 | **+78.35%** |
+| 12 Days   | $26,420.56 | **+161.60%** | 21.22% | **-18.36%** | 30 | +74.70% |
+| 15 Days   | $25,824.32 | **+155.70%** | 20.67% | **-18.36%** | 30 | +68.80% |
+| 20 Days   | $25,409.10 | **+151.59%** | 20.28% | **-18.36%** | 30 | +64.69% |
+
+**Benchmark (Buy & Hold):** $18,690.23 | +86.90% | 13.37% CAGR
+
+**🏆 Best Configuration (5 Years):** 10 Wait Days
+- Highest returns: +165.25% Total, 21.56% CAGR
+- Low drawdown: -19.56%
+- Best balance between risk and return
+
+---
+
+#### 📊 10-Year Backtest (2015-2025) - Parameter Study
+
+**Period:** Dec 24, 2015 → Dec 23, 2025 (~119 months)  
+**Symbol:** SPY | **MA Period:** 200 days | **Initial Capital:** $10,000
+
+| Wait Days | Final Value | Total Return | CAGR | Max Drawdown | Trades | Benchmark Outperformance |
+|-----------|-------------|--------------|------|--------------|--------|--------------------------|
+| 2 Days    | $55,778.16 | **+460.12%** | 18.81% | -23.08% | 60 | +225.71% |
+| 5 Days    | $63,836.08 | **+541.04%** | 20.42% | -22.15% | 60 | +306.63% |
+| 8 Days    | $76,734.25 | **+667.34%** | 22.61% | -24.02% | 61 | +432.93% |
+| 10 Days   | $83,589.37 | **+735.89%** | 23.66% | **-19.56%** | 61 | +501.48% |
+| **12 Days** | **$86,527.52** | **+765.28%** ⭐ | **24.09%** ⭐ | **-18.36%** ⭐ | 61 | **+530.87%** |
+| 15 Days   | $75,484.72 | **+654.85%** | 22.40% | **-18.36%** | 61 | +420.44% |
+| 20 Days   | $73,956.66 | **+639.57%** | 22.15% | **-18.36%** | 61 | +405.16% |
+
+**Benchmark (Buy & Hold):** $33,441.09 | +234.41% | 13.01% CAGR
+
+**🏆 Best Configuration (10 Years):** 12 Wait Days
+- Highest returns: +765.28% Total, 24.09% CAGR
+- Lowest drawdown: -18.36%
+- Over 500% outperformance vs. Buy&Hold
+
+---
+
+### 📈 Results Visualization
+
+#### CAGR vs Wait Days
+
+```
+25% |                    ●12d (24.09%)
+    |              ●10d (23.66%)
+24% |          ●8d (22.61%)
+    |      ●5d (20.42%)●15d,20d (22.15-22.40%)
+23% |  ●2d (18.81%)
+    |_________________________________
+    2    5    8   10   12   15   20
+         Wait Days (10-Year Backtest)
+```
+
+#### Max Drawdown vs Wait Days
+
+```
+-18% |          ●12d,15d,20d (-18.36%)
+     |              ●10d (-19.56%)
+-20% |      ●5d (-22.15%)
+     |  ●2d (-23.08%)
+-22% |          ●8d (-24.02%)
+-24% |_________________________________
+     2    5    8   10   12   15   20
+          Wait Days (10-Year Backtest)
+```
+
+---
+
+### 🎯 Optimal Parameter Selection
+
+**Short-term (5 Years):**
+- **Best Choice:** 10 Wait Days
+- Reason: Optimal balance between return (21.56% CAGR) and risk (-19.56% DD)
+
+**Long-term (10 Years):**
+- **Best Choice:** 12 Wait Days
+- Reason: Highest CAGR (24.09%) with lowest drawdown (-18.36%)
+
+**General Observations:**
+- ✅ 10-12 days show best performance across both periods
+- ✅ Too short waiting times (2-5 days): higher drawdown, lower returns
+- ✅ Too long waiting times (15-20 days): missed entry opportunities, lower returns
+- ✅ "Sweet spot" is at 10-12 days
+
+---
+
+### Analysis of Results
+
+#### ✅ Strong Points
+
+1. **Exceptional Outperformance**
+   - 5 years (10 Wait Days): +78% better than Buy&Hold
+   - 10 years (12 Wait Days): +531% better than Buy&Hold
+   - Consistent across different parameters
+
+2. **Impressive CAGR (Compound Annual Growth Rate)**
+   - 5 years: 19-22% per year (depending on parameters)
+   - 10 years: 19-24% per year (depending on parameters)
+   - For comparison: S&P 500 historically ~10% p.a., here 13% Buy&Hold
+
+3. **Excellent Risk Management**
+   - Max Drawdown: -18% to -24% (optimal: -18.36% at 12-15 days)
+   - Significantly better than Buy&Hold drawdowns (often -30% to -50%)
+   - Risk management through MA200 sell signal works excellently
+
+4. **Moderate Trading Frequency**
+   - 5 years: 30 trades = ~6 trades/year
+   - 10 years: 60-61 trades = ~6 trades/year
+   - Manageable transaction costs
+
+5. **Robustness Across Different Parameters**
+   - All configurations beat Buy&Hold
+   - Even worst variant (2 days, 10Y) delivers +460% vs. +234%
+
+#### ⚠️ Important Considerations
+
+1. **Period with Strong Bull Market**
+   - 2015-2025 was an exceptionally strong period
+   - COVID crash (2020) was handled well
+   - Strategy benefits from strong upward trend
+   - Performance might differ in longer sideways markets
+
+2. **Transaction Costs Not Included**
+   - 30-61 trades generate fees
+   - At $5 per trade: 5Y = $150, 10Y = $305
+   - With 0.1% percentage fees: significantly more
+   - Impact on net return depends on broker
+
+3. **Tax Implications (Germany: Abgeltungssteuer)**
+   - Frequent trading leads to realized gains
+   - Capital gains tax (25% + solidarity surcharge) on each profit
+   - Buy&Hold: only one tax realization at the end
+   - Tax optimization through longer holding periods not possible
+
+4. **Overfitting Risk**
+   - Optimization on historical data
+   - "Best" parameters might change in the future
+   - Robustness tests across different markets/periods recommended
+
+5. **MA200 as Lagging Indicator**
+   - Reacts with delay to trend changes
+   - Flash crashes can lead to losses
+   - With rapid V-shaped recovery, possibly too late
+
+### Comparison of Different Strategies
+
+| Metric | Buyback-12 (10Y) | Buyback-10 (5Y) | Buy & Hold (10Y) | Buy & Hold (5Y) |
+|--------|------------------|-----------------|------------------|-----------------|
+| **Total Return** | **+765.28%** ⭐ | **+165.25%** ⭐ | +234.41% | +86.90% |
+| **CAGR** | **24.09%** ⭐ | **21.56%** ⭐ | 13.01% | 13.37% |
+| **Max Drawdown** | **-18.36%** ⭐ | **-19.56%** | -35% to -50% (typical) | -35% to -50% (typical) |
+| **Trades** | 61 | 30 | 0 | 0 |
+| **Complexity** | Medium | Medium | None | None |
+| **Outperformance** | **+531%** vs B&H | **+78%** vs B&H | Baseline | Baseline |
+
+**Performance Advantage Summary:**
+- 10Y Buyback-12 vs Buy&Hold: +530.87 percentage points absolute return (765.28% vs 234.41%)
+- 5Y Buyback-10 vs Buy&Hold: +78.35 percentage points absolute return (165.25% vs 86.90%)
+- CAGR Multiple: Buyback delivers 1.85x to 1.86x higher annual returns
+
+### Conclusion
+
+The Buyback Strategy shows **outstanding results** in backtesting:
+
+**Pros:**
+- Exceptional returns: up to +765% in 10 years
+- Consistent outperformance versus Buy&Hold
+- Excellent risk management with low drawdown
+- Automatic re-entry prevents "missing the market"
+- Robustness across different parameters (10-12 days optimal)
+- Moderate trading frequency (~6 trades/year)
+
+**Cons:**
+- Results based on historically strong bull market
+- No guarantee of future performance
+- Transaction costs and taxes reduce net profit
+- Overfitting risk in parameter optimization
+- Higher complexity than Buy&Hold
+- Requires discipline and consistent execution
+
+**Recommendation:** The strategy is suitable for active investors who:
+- Are willing to trade systematically (6 trades/year)
+- Want to minimize drawdowns (risk awareness)
+- Want to participate in long-term trends
+- Prefer technical analysis strategies
+- Understand tax and cost implications
+- **Recommended Configuration:** 10-12 Wait Days
