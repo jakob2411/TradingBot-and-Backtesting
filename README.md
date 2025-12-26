@@ -1,6 +1,15 @@
 # TradingBot — Quick Manual
 
-Portfolio management CLI for Alpaca, plus a minimal bot starting point.
+**Portfolio management CLI for Alpaca** with comprehensive **backtesting capabilities** and bot automation.
+
+## 🎯 Key Features
+
+- **📊 Advanced Backtesting Engine**: Test trading strategies over 3-50 years of historical data
+- **📈 Multiple Strategies**: MA200, Buyback-N, and support for 1x-3x leveraged ETFs
+- **💰 Portfolio Management**: Complete CLI for Alpaca trading (buy, sell, positions, orders)
+- **🤖 Bot Framework**: Minimal starting point for automated trading
+- **📉 Risk Analysis**: Comprehensive performance metrics (CAGR, Sharpe, Max Drawdown)
+- **📊 Visualization**: Generate charts and export data to CSV
 
 For more information, see the [official Alpaca documentation](https://docs.alpaca.markets/docs/getting-started).
 
