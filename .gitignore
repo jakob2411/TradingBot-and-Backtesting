@@ -5,6 +5,10 @@ __pycache__/
 # Secrets / local config
 alpaca_secrets.py
 .env
+
+# macOS
+.DS_Store
+
 # Backtest outputs
 outputs/
 *.png
