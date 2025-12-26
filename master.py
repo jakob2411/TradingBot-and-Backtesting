@@ -310,7 +310,29 @@ def build_parser() -> argparse.ArgumentParser:
     p_val = sub.add_parser("portfolio-value", help="Sum market value of all positions")
     p_val.set_defaults(func=cmd_portfolio_value)
 
+    # backtest-ma200
+    p_bt = sub.add_parser("backtest-ma200", help="Backtest MA200 strategy on daily data (default SPY, 5y)")
+    p_bt.add_argument("--symbol", default="SPY", help="Ticker to backtest (default: SPY)")
+    p_bt.add_argument("--years", type=int, default=5, help="Number of years to backtest (default: 5)")
+    p_bt.add_argument("--initial-cash", type=float, default=10_000.0, help="Starting capital (default: 10000)")
+    p_bt.add_argument("--csv", default=None, help="Optional path to save equity curve as CSV")
+    p_bt.add_argument("--plot", action="store_true", help="Display a plot of equity and position")
+    p_bt.add_argument("--plot-file", default=None, help="Save plot image to this path (e.g., backtest.png)")
+    p_bt.set_defaults(func=cmd_backtest_ma200)
+
     return parser
+
+
+def cmd_backtest_ma200(args: argparse.Namespace) -> None:
+    try:
+        from strategies.ma200 import run_cli
+    except Exception as e:
+        print("Backtest dependencies missing. Please install requirements:")
+        print("  pip install -r requirements.txt")
+        print(f"Error: {e}")
+        return
+    run_cli(symbol=args.symbol, years=args.years, initial_cash=args.initial_cash, csv=args.csv,
+            plot=args.plot, plot_file=args.plot_file)
 
 
 def main(argv: list[str] | None = None) -> int:

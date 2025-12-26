@@ -2,6 +2,8 @@
 
 Portfolio management CLI for Alpaca, plus a minimal bot starting point.
 
+For more information, see the [official Alpaca documentation](https://docs.alpaca.markets/docs/getting-started).
+
 ## Quick Start
 ```bash
 # 1) Create & activate venv
@@ -54,6 +56,17 @@ Notes:
 
 # Portfolio value
 ./master.py portfolio-value
+
+# Backtest: MA200 Strategy
+# The MA200 strategy buys when price > 200-day moving average, sells when below
+./master.py backtest-ma200                              # 5 years (default)
+./master.py backtest-ma200 --years 1                    # 1 year backtest
+./master.py backtest-ma200 --years 10                   # 10 years backtest
+./master.py backtest-ma200 --symbol SPY --years 5 --initial-cash 20000
+./master.py backtest-ma200 --csv equity.csv             # save data to CSV
+./master.py backtest-ma200 --plot                       # show plot window
+./master.py backtest-ma200 --plot-file backtest.png     # save plot image
+./master.py backtest-ma200 --years 10 --plot            # 10 years with plot
 ```
 
 ## Minimal Bot (optional)
@@ -95,5 +108,6 @@ python bot_example.py
 
 ## Troubleshooting
 - `ModuleNotFoundError: alpaca`: install deps in venv (`pip install -r requirements.txt`).
+- `ModuleNotFoundError: yfinance|pandas|matplotlib`: install deps via `pip install -r requirements.txt`.
 - Missing credentials: use [alpaca_secrets.py](alpaca_secrets.py) or export env vars.
 - Paper vs live: `ALPACA_PAPER=true|false` (paper is safe for testing).

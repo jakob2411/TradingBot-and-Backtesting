@@ -1,1 +1,5 @@
 alpaca-py==0.30.1
+numpy>=1.24
+pandas>=2.0
+yfinance>=0.2.30
+matplotlib>=3.8
