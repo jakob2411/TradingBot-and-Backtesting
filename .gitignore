@@ -5,3 +5,7 @@ __pycache__/
 # Secrets / local config
 alpaca_secrets.py
 .env
+# Backtest outputs
+outputs/
+*.png
+*.csv
