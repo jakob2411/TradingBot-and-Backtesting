@@ -341,7 +341,7 @@ The strategy was tested with various Wait-Days parameters to determine the optim
 |--------|------------------|-----------------|------------------|-----------------|
 | **Total Return** | **+765.28%** ⭐ | **+165.25%** ⭐ | +234.41% | +86.90% |
 | **CAGR** | **24.09%** ⭐ | **21.56%** ⭐ | 13.01% | 13.37% |
-| **Max Drawdown** | **-18.36%** ⭐ | **-19.56%** | -35% to -50% (typical) | -35% to -50% (typical) |
+| **Max Drawdown** | **-18.36%** | **-19.56%** | -35% to -50% (typical) | -35% to -50% (typical) |
 | **Trades** | 61 | 30 | 0 | 0 |
 | **Complexity** | Medium | Medium | None | None |
 | **Outperformance** | **+531%** vs B&H | **+78%** vs B&H | Baseline | Baseline |
