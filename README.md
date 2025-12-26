@@ -57,16 +57,33 @@ Notes:
 # Portfolio value
 ./master.py portfolio-value
 
-# Backtest: MA200 Strategy
-# The MA200 strategy buys when price > 200-day moving average, sells when below
-./master.py backtest-ma200                              # 5 years (default)
+# Backtest: Moving Average Strategy
+# Buys when price > N-day moving average, sells when below
+./master.py backtest-ma200                              # MA200, 5 years (default)
 ./master.py backtest-ma200 --years 1                    # 1 year backtest
 ./master.py backtest-ma200 --years 10                   # 10 years backtest
+./master.py backtest-ma200 --ma-period 50               # Use MA50 instead of MA200
 ./master.py backtest-ma200 --symbol SPY --years 5 --initial-cash 20000
 ./master.py backtest-ma200 --csv equity.csv             # save data to CSV
 ./master.py backtest-ma200 --plot                       # show plot window
-./master.py backtest-ma200 --plot-file backtest.png     # save plot image
+./master.py backtest-ma200 --plot-file backtest.png     # save plot image (auto-saved to outputs/)
 ./master.py backtest-ma200 --years 10 --plot            # 10 years with plot
+
+# Backtest: Buyback Strategy (Superior Performance!)
+# Sells when price crosses below MA200, automatically buys back after N days
+# This strategy often outperforms simple MA and buy-and-hold strategies
+./master.py backtest-buyback                            # 10-day wait, 5 years (default)
+./master.py backtest-buyback --years 10                 # 10 years backtest
+./master.py backtest-buyback --wait-days 12             # Buy back after 12 days
+./master.py backtest-buyback --ma-period 200 --wait-days 10  # Full config
+./master.py backtest-buyback --symbol SPY --years 10 --wait-days 12 --plot-file result.png
+./master.py backtest-buyback --csv equity.csv           # save data to CSV
+
+# Example Results (SPY, 10 years):
+# - Buyback-12: 765% return, 24.09% CAGR (best overall)
+# - Buyback-10: 736% return, 23.66% CAGR
+# - MA200:      135% return,  8.91% CAGR
+# - Buy&Hold:   234% return, ~12.8% CAGR
 ```
 
 ## Minimal Bot (optional)
