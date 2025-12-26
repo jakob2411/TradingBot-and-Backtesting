@@ -13,6 +13,8 @@
 
 For more information, see the [official Alpaca documentation](https://docs.alpaca.markets/docs/getting-started).
 
+**Historical market data** is retrieved via [yfinance](https://ranaroussi.github.io/yfinance/) for backtesting purposes.
+
 ---
 
 ## ⚠️ Disclaimer
