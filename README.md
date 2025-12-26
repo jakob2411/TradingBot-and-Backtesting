@@ -57,7 +57,71 @@ Notes:
 - Direct run works via the shebang; ensure the file is executable (`chmod +x master.py`).
 - `.venv/` is ignored by [.gitignore](.gitignore); keep secrets out of Git.
 
+---
+
+## 📊 Backtesting Strategies
+
+This project includes a **comprehensive backtesting engine** with two proven strategies tested over decades of market data.
+
+### 🎯 Available Strategies
+
+#### 1. **MA200 Strategy** (Moving Average Crossover)
+- **Logic**: Buy when price > MA200, sell when below
+- **Best for**: Simple trend following
+- **Typical CAGR**: 8-12% (SPY)
+- **Max Drawdown**: ~25-35%
+
+#### 2. **Buyback-N Strategy** ⭐ **Recommended**
+- **Logic**: Sell on MA200 cross below, auto-buyback after N trading days
+- **Innovation**: Prevents "missing the market" during recoveries
+- **Parameter Study**: Tested with 2, 5, 8, 10, 12, 15, 20 wait days
+- **Best Configuration**: 
+  - **10-12 wait days** for optimal risk/return balance
+  - **SPY (1x)**: 24% CAGR, -18% Max DD (10Y)
+  - **SSO (2x)**: 42% CAGR, -45% Max DD (10Y) 🚀
+  - **15Y SSO**: 38.55% CAGR, turns $10K into $1.34M
+
+### 📈 Tested Instruments
+
+- **SPY** (S&P 500): Standard, lower risk
+- **SSO** (2x Leveraged S&P 500): Higher returns, higher risk
+- **Custom symbols**: Works with any ticker available on yfinance
+
+### 🔬 Extensive Testing Periods
+
+- **3 years** (2022-2025): Recent bull market
+- **5 years** (2020-2025): Including COVID crash recovery
+- **10 years** (2015-2025): Full market cycle
+- **15 years** (2010-2025): Post-2008 recovery + growth
+- **20 years** (2006-2025): Including 2008 Financial Crisis
+- **25 years** (2000-2025): Dot-com + Financial Crisis + COVID
+- **50 years** (1975-2025): Maximum available data (when data exists)
+
+### 📊 Key Findings
+
+**Buyback Strategy vs Buy&Hold (10Y SPY):**
+- Strategy: **+765%** return (24% CAGR)
+- Buy&Hold: **+234%** return (13% CAGR)
+- **Outperformance: +531 percentage points** ⭐
+
+**With 2x Leverage (10Y SSO):**
+- Strategy: **+3,232%** return (42% CAGR)
+- Buy&Hold: **+655%** return
+- Max Drawdown: -45% (manageable for leverage)
+
+**📄 Detailed Analysis**: See [strategies/buyback_strategy_explanation_EN.md](strategies/buyback_strategy_explanation_EN.md) for:
+- Complete parameter optimization studies
+- Risk/return analysis
+- Whipsaw analysis (trade frequency by year)
+- Leverage comparison tables
+- Historical drawdown analysis
+- Visual charts and examples
+
+---
+
 ## CLI Cheatsheet
+
+### Portfolio Management
 ```bash
 # Account overview
 ./master.py account
@@ -81,9 +145,12 @@ Notes:
 
 # Portfolio value
 ./master.py portfolio-value
+```
 
-# Backtest: Moving Average Strategy
-# Buys when price > N-day moving average, sells when below
+### Backtesting Commands
+
+#### MA200 Strategy
+```bash
 ./master.py backtest-ma200                              # MA200, 5 years (default)
 ./master.py backtest-ma200 --years 1                    # 1 year backtest
 ./master.py backtest-ma200 --years 10                   # 10 years backtest
@@ -93,11 +160,10 @@ Notes:
 ./master.py backtest-ma200 --plot                       # show plot window
 ./master.py backtest-ma200 --plot-file backtest.png     # save plot image (auto-saved to outputs/)
 ./master.py backtest-ma200 --years 10 --plot            # 10 years with plot
+```
 
-# Backtest: Buyback Strategy (Superior Performance!)
-# Sells when price crosses below MA200, automatically buys back after N days
-# This strategy often outperforms simple MA and buy-and-hold strategies
-./master.py backtest-buyback                            # 10-day wait, 5 years (default)
+#### Buyback Strategy ⭐
+```bash
 ./master.py backtest-buyback --years 10                 # 10 years backtest
 ./master.py backtest-buyback --wait-days 12             # Buy back after 12 days
 ./master.py backtest-buyback --ma-period 200 --wait-days 10  # Full config
