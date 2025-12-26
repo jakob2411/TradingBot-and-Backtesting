@@ -4,6 +4,22 @@ Portfolio management CLI for Alpaca, plus a minimal bot starting point.
 
 For more information, see the [official Alpaca documentation](https://docs.alpaca.markets/docs/getting-started).
 
+---
+
+## ⚠️ Disclaimer
+
+**This software is for educational and research purposes only. It is NOT investment advice.**
+
+- **Past performance does not guarantee future results.** All backtest results presented are based on historical data and do not indicate future performance.
+- **Trading involves substantial risk of loss.** You may lose some or all of your invested capital.
+- **Do your own research.** Always conduct independent research and consult with licensed financial advisors before making investment decisions.
+- **No warranties.** This software is provided "as is" without any warranties of any kind, express or implied.
+- **Use at your own risk.** The authors and contributors are not responsible for any financial losses or damages resulting from the use of this software.
+
+By using this software, you acknowledge that you understand these risks and agree to use it responsibly.
+
+---
+
 ## Quick Start
 ```bash
 # 1) Create & activate venv
