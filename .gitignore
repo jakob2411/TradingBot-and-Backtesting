@@ -10,6 +10,6 @@ alpaca_secrets.py
 .DS_Store
 
 # Backtest outputs
-outputs/
-*.png
-*.csv
+#outputs/
+#*.png
+#*.csv
