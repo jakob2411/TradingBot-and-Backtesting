@@ -1,4 +1,4 @@
-# TradingBot — Quick Manual
+# TradingBot & Backtesting — Quick Manual
 
 **Portfolio management CLI for Alpaca** with comprehensive **backtesting capabilities** and bot automation.
 
@@ -164,20 +164,53 @@ This project includes a **comprehensive backtesting engine** with two proven str
 
 #### Buyback Strategy ⭐
 ```bash
+# Basic usage
+./master.py backtest-buyback                            # 10-day wait, 5 years (default)
 ./master.py backtest-buyback --years 10                 # 10 years backtest
-./master.py backtest-buyback --wait-days 12             # Buy back after 12 days
-./master.py backtest-buyback --ma-period 200 --wait-days 10  # Full config
-./master.py backtest-buyback --symbol SPY --years 10 --wait-days 12 --plot-file result.png
-./master.py backtest-buyback --csv equity.csv           # save data to CSV
+./master.py backtest-buyback --years 3                  # Recent 3-year bull market
 
-# Example Results (SPY, 10 years):
-# - Buyback-12: 765% return, 24.09% CAGR (best overall)
-# - Buyback-10: 736% return, 23.66% CAGR
-# - MA200:      135% return,  8.91% CAGR
-# - Buy&Hold:   234% return, ~12.8% CAGR
+# Parameter optimization
+./master.py backtest-buyback --wait-days 12             # Buy back after 12 days
+./master.py backtest-buyback --wait-days 10 --years 10  # Optimal config
+./master.py backtest-buyback --ma-period 200 --wait-days 10  # Full config
+
+# Different instruments
+./master.py backtest-buyback --symbol SPY --years 10    # Standard S&P 500
+./master.py backtest-buyback --symbol SSO --years 10    # 2x Leveraged (higher risk/return)
+./master.py backtest-buyback --symbol UPRO --years 5    # 3x Leveraged (extreme)
+
+# Output options
+./master.py backtest-buyback --plot                     # Show interactive chart
+./master.py backtest-buyback --plot-file result.png     # Save chart (auto to outputs/)
+./master.py backtest-buyback --csv equity.csv           # Export data to CSV
+./master.py backtest-buyback --years 10 --wait-days 12 --plot-file SPY_10Y.png
+
+# Real-world examples:
+# SPY (Standard):
+./master.py backtest-buyback --symbol SPY --years 10 --wait-days 12 --plot-file SPY_10Y.png
+# Result: +765% return, 24.09% CAGR, -18.36% Max DD
+
+# SSO (2x Leverage):
+./master.py backtest-buyback --symbol SSO --years 10 --wait-days 10 --plot-file SSO_10Y.png
+# Result: +3,232% return, 42% CAGR, -44.86% Max DD
+
+# SSO (15 years - Sweet Spot):
+./master.py backtest-buyback --symbol SSO --years 15 --wait-days 10 --plot-file SSO_15Y.png
+# Result: +13,166% return, 38.55% CAGR, $10K → $1.34M 🚀
 ```
 
-## Minimal Bot (optional)
+**Performance Summary** (Buyback Strategy, 10 years):
+
+| Symbol | Wait Days | Total Return | CAGR | Max DD | Final Value |
+|--------|-----------|--------------|------|--------|-------------|
+| SPY    | 12        | **+765%**    | 24.09% | -18.36% | $86,527 |
+| SPY    | 10        | **+736%**    | 23.66% | -19.56% | $83,589 |
+| SSO    | 10        | **+3,232%**  | 42.00% | -44.86% | $333,206 |
+| Buy&Hold SPY | -   | +234%        | 13.01% | -35%    | $33,441 |
+
+---
+
+## 🤖 Minimal Bot (Optional)
 Save as `bot_example.py` and run inside the venv.
 ```python
 #!/usr/bin/env python3
